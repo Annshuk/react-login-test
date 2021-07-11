@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import LoginForm from "./Login/Components";
-import Dashboard from "./Dashboard";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import LoginForm from './Login/Components';
+import Dashboard from './Dashboard';
 import {
   getProducts,
   getUser,
   getLogout,
   removeProductItem,
   addProductItem
-} from "./services";
-import "bootstrap/dist/css/bootstrap.min.css";
+} from './services';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
   constructor(props) {
@@ -21,10 +21,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let isActive = JSON.parse(sessionStorage.getItem("users"));
+    let isActive = JSON.parse(sessionStorage.getItem('users'));
     if (isActive) {
       this.props.getUser();
-     this.props.getProducts();
+      this.props.getProducts();
     }
   }
 
@@ -36,7 +36,7 @@ class App extends Component {
       }
     });
     var user = { email: email, password: password };
-    sessionStorage.setItem("users", JSON.stringify(user));
+    sessionStorage.setItem('users', JSON.stringify(user));
     this.props.getUser();
     this.props.getProducts();
   };
@@ -57,7 +57,7 @@ class App extends Component {
   };
 
   render() {
-    let isLogin = JSON.parse(sessionStorage.getItem("users"));
+    let isLogin = JSON.parse(sessionStorage.getItem('users'));
     return (
       <Router>
         {!isLogin ? (
@@ -81,7 +81,8 @@ class App extends Component {
                 user={isLogin}
                 onSignOut={this.signOut}
                 handleDelete={this.handleDelete}
-                handleAddItem = {this.handleAddItem}
+                handleAddItem={this.handleAddItem}
+                {...props}
               />
             )}
           />
