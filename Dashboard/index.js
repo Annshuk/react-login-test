@@ -1,23 +1,25 @@
-import React from "react";
-import Product from "../Products";
+import React from 'react';
+import Product from '../Products';
+
 const Welcome = ({
   products,
   user,
   onSignOut,
   handleDelete,
-  handleAddItem
+  handleAddItem,
 }) => {
-  let username = user.email && user.email.split("@")[0];
+  let username = user.email && user.email.split('@')[0];
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-12">
           <p className="user-title">
-            {" "}
+            {' '}
             Hello <b>{username}</b> !
             <a href="javscript:;" onClick={onSignOut}>
-              {" "}
-              Sign out{" "}
+              {' '}
+              Sign out{' '}
             </a>
           </p>
         </div>
