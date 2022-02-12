@@ -8,7 +8,7 @@ import {
   getUser,
   getLogout,
   removeProductItem,
-  addProductItem
+  addProductItem,
 } from './services';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,7 +16,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: null,
     };
   }
 
@@ -32,8 +32,8 @@ class App extends Component {
     this.setState({
       user: {
         email,
-        password
-      }
+        password,
+      },
     });
     var user = { email: email, password: password };
     sessionStorage.setItem('users', JSON.stringify(user));
@@ -47,13 +47,12 @@ class App extends Component {
     sessionStorage.clear();
   };
 
-  handleDelete = id => {
+  handleDelete = (id) => {
     this.props.removeProductItem(id);
   };
 
-  handleAddItem = data => {
-    event.preventDefault();
-    this.props.addProductItem(data);
+  handleAddItem = (values) => {
+    this.props.addProductItem(values);
   };
 
   render() {
@@ -64,7 +63,7 @@ class App extends Component {
           <Route
             exact
             path="/"
-            component={props => (
+            component={(props) => (
               <LoginForm
                 onSignIn={this.signIn}
                 getLogin={this.props.getUser}
@@ -75,7 +74,7 @@ class App extends Component {
         ) : (
           <Route
             path="/"
-            component={props => (
+            component={(props) => (
               <Dashboard
                 products={this.props.product}
                 user={isLogin}
@@ -91,22 +90,21 @@ class App extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => {
+
+const mapDispatchToProps = (dispatch) => {
   return {
     getProducts: () => dispatch(getProducts()),
     getUser: () => dispatch(getUser()),
     getLogout: () => dispatch(getLogout()),
-    removeProductItem: id => dispatch(removeProductItem(id)),
-    addProductItem: data => dispatch(addProductItem(data))
-  };
-};
-const mapStateToProps = state => {
-  return {
-    product: state.dashboard
+    removeProductItem: (id) => dispatch(removeProductItem(id)),
+    addProductItem: (data) => dispatch(addProductItem(data)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+const mapStateToProps = (state) => {
+  return {
+    product: state.dashboard,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
